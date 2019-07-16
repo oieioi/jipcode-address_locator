@@ -1,3 +1,4 @@
+[![Gem Version](https://badge.fury.io/rb/jipcode-address_locator.svg)](https://badge.fury.io/rb/jipcode-address_locator)
 [![Build Status](https://travis-ci.com/oieioi/jipcode-address_locator.svg?branch=master)](https://travis-ci.com/oieioi/jipcode-address_locator)
 
 # Jipcode::AddressLocator
