@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'jipcode'
 require 'jipcode/address_locator'
 
 module Jipcode

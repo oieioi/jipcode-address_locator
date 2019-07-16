@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
+require 'jipcode'
 require 'jipcode-address_locator'
 
 RSpec.configure do |config|
