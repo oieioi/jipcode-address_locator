@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jipcode-address_locator (0.0.1)
+    jipcode-address_locator (0.0.2)
       jaro_winkler (~> 1.5.3)
       jipcode (~> 1.5.0)
 
