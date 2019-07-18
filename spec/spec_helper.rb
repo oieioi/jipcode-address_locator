@@ -2,7 +2,7 @@
 
 require 'bundler/setup'
 require 'jipcode'
-require 'jipcode-address_locator'
+require 'jipcode/address_locator'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
