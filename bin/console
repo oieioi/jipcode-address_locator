@@ -2,7 +2,8 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'jipcode-address_locator'
+require 'jipcode'
+require 'jipcode/address_locator'
 require 'byebug'
 
 # You can add fixtures and/or initialization code here to make experimenting

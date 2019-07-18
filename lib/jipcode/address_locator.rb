@@ -3,6 +3,7 @@
 require 'jipcode/address_locator/locator'
 require 'jipcode/address_locator/indexer'
 require 'jipcode/address_locator/version'
+require 'jipcode/address_locator/ext_jipcode'
 
 module Jipcode
   module AddressLocator
