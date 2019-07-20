@@ -43,6 +43,12 @@ Jipcode.locate_by_address '東京都千代田区千代田1-1', prefecture_code: 
 # ]
 ```
 
+### インデックスを更新する
+
+```ruby
+Jipcode::AddressLocator.create_index!
+```
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
