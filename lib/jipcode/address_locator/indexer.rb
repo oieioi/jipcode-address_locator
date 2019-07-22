@@ -2,6 +2,7 @@
 
 require 'csv'
 require 'jipcode/address_locator/helper'
+require 'jipcode/address_locator/normalizer'
 
 module Jipcode
   module AddressLocator
@@ -25,8 +26,6 @@ module Jipcode
       File.open(INDEX_VERSION_FILE, 'w') do |f|
         f.write(Jipcode::VERSION)
       end
-    rescue StandardError => e
-      raise e, 'Failed to create index'
     end
 
     # @private
@@ -37,25 +36,26 @@ module Jipcode
 
     # @private
     def self.collect_index
-      # 都道府県コードは1から始まるので一つ余計に作る
-      index = Array.new(PREFECTURE_CODE.size + 1) { [] }
+      index = 47.times.each_with_object({}) { |item, memo| memo[item + 1] = []; }
 
       Dir.glob("#{ZIPCODE_PATH}/*.csv").each do |file_name|
         CSV.read(file_name).each do |row|
-          _zipcode, prefecture_name, _city, _town = row
+          _zipcode, prefecture_name, city, town = row
+          row << normalize_address("#{prefecture_name}#{city}#{town}")
           prefecture_code = extract_prefecture_code(prefecture_name)
           index[prefecture_code] << row
         end
       end
-      index.shift
+
       index
     end
 
     # @private
     def self.export_index(index)
-      index.each.with_index(1) do |rows, prefecture_code|
+      index.each do |prefecture_code, rows|
         rows.sort_by! { |row| [row[0], row[2], row[3]] }
         CSV.open("#{INDEX_PATH}/#{prefecture_code}.csv", 'wb') do |csv|
+          csv << %w[zipcode prefecture_name city town normalized_address]
           rows.each { |row| csv << row }
         end
       end

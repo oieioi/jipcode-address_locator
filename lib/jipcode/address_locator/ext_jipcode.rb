@@ -14,7 +14,7 @@ module Jipcode
 
     AddressLocator.locate(search_address).map do |address_param|
       address = extended_address_from(address_param, opt)
-      address[:distance] = address_param[4] if opt[:distance]
+      address[:distance] = address_param['distance'] if opt[:distance]
       address
     end
   end

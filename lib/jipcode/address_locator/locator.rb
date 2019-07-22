@@ -3,6 +3,7 @@
 require 'csv'
 require 'jaro_winkler'
 require 'jipcode/address_locator/helper'
+require 'jipcode/address_locator/normalizer'
 
 module Jipcode
   module AddressLocator
@@ -10,9 +11,11 @@ module Jipcode
     # @param [String] search_address
     # @return [Array<Hash>] zipcode data
     def self.locate(search_address)
-      find_by_address(search_address)
-        .yield_self { |addresses| calc_and_add_distance(addresses, search_address) }
-        .sort_by(&:last)
+      normalized = normalize_address(search_address)
+
+      find_by_address(normalized)
+        .map { |address| calc_and_add_distance!(address, normalized) }
+        .sort_by { |address| address['distance'] }
         .reverse
     end
 
@@ -22,8 +25,8 @@ module Jipcode
       path = "#{INDEX_PATH}/#{prefecture_code}.csv"
       return [] if prefecture_code.nil?
 
-      CSV.read(path).select do |row|
-        address = row[1..3].join('')
+      CSV.read(path, headers: true).select do |row|
+        address = row['normalized_address']
         # 長いほうが短い方に含まれてるか判別
         long = [address, search_address].max
         short = [address, search_address].min
@@ -32,14 +35,12 @@ module Jipcode
     end
 
     # @private
-    def self.calc_and_add_distance(addresses, search_address)
-      addresses.map do |row|
-        combined = row[1..3].join('')
-        distance = JaroWinkler.distance(combined, search_address)
-        row << distance
-      end
+    def self.calc_and_add_distance!(address, search_address)
+      distance = JaroWinkler.distance(address['normalized_address'], search_address)
+      address['distance'] = distance
+      address
     end
 
-    private_class_method :calc_and_add_distance, :find_by_address
+    private_class_method :calc_and_add_distance!, :find_by_address
   end
 end
