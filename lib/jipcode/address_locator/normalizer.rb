@@ -10,8 +10,8 @@ module Jipcode
     # @return [String] normalized address
     def self.normalize_address(raw_address)
       zenkaku2hankaku(raw_address)
-        .yield_self { |address| kansuji2hankaku(address) }
-        .yield_self { |address| jukyohyouji2hyphen(address) }
+        .then { |address| kansuji2hankaku(address) }
+        .then { |address| jukyohyouji2hyphen(address) }
     end
 
     # 全角数字ハイフン→半角数字ハイフン

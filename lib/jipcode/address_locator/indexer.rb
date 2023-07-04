@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
+require 'fileutils'
 require 'jipcode/address_locator/helper'
 require 'jipcode/address_locator/normalizer'
 
@@ -23,20 +24,18 @@ module Jipcode
 
       export_index(index)
 
-      File.open(INDEX_VERSION_FILE, 'w') do |f|
-        f.write(Jipcode::VERSION)
-      end
+      File.write(INDEX_VERSION_FILE, Jipcode::VERSION)
     end
 
     # @private
     def self.refresh_index_dir
-      FileUtils.rm_rf(INDEX_PATH) if File.exist?(INDEX_PATH)
+      FileUtils.rm_rf(INDEX_PATH)
       Dir.mkdir(INDEX_PATH)
     end
 
     # @private
     def self.collect_index
-      index = 47.times.each_with_object({}) { |item, memo| memo[item + 1] = []; }
+      index = 47.times.each_with_object({}) { |item, memo| memo[item + 1] = [] }
 
       Dir.glob("#{ZIPCODE_PATH}/*.csv").each do |file_name|
         CSV.read(file_name).each do |row|

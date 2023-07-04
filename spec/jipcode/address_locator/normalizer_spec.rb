@@ -2,7 +2,7 @@
 
 RSpec.describe Jipcode::AddressLocator do
   describe '#normalize_address' do
-    subject { Jipcode::AddressLocator.normalize_address(address_string) }
+    subject { described_class.normalize_address(address_string) }
 
     [
       ['東京都千代田区千代田１–１', '東京都千代田区千代田1-1'],
@@ -14,6 +14,7 @@ RSpec.describe Jipcode::AddressLocator do
 
       context "#{address_string} -> #{expected}" do
         let(:address_string) { address_string }
+
         it { is_expected.to eq expected }
       end
     end

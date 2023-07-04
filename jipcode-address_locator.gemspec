@@ -9,6 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = Jipcode::AddressLocator::VERSION
   spec.authors       = ['oieioi']
   spec.email         = ['atsuinatsu.samuifuyu@gmail.com']
+  spec.required_ruby_version = '>= 2.7.0'
 
   spec.summary       = 'Extend jipcode.gem to locate zipcode data by address'
   spec.description   = 'Extend jipcode.gem to locate zipcode data by address'
@@ -22,9 +23,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'jaro_winkler', '~> 1.5.3'
   spec.add_dependency 'jipcode', '>= 1.5.0'
-  spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'byebug'
-  spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec'
-  spec.add_development_dependency 'rubocop'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end
