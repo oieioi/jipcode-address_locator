@@ -54,7 +54,16 @@ module Jipcode
       index.each do |prefecture_code, rows|
         rows.sort_by! { |row| [row[0], row[2], row[3]] }
         CSV.open("#{INDEX_PATH}/#{prefecture_code}.csv", 'wb') do |csv|
-          csv << %w[zipcode prefecture_name city town normalized_address]
+          csv << %w[
+            zipcode
+            prefecture_name
+            city
+            town
+            prefecture_kana
+            city_kana
+            town_kana
+            normalized_address
+          ]
           rows.each { |row| csv << row }
         end
       end

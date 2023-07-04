@@ -5,6 +5,9 @@ require:
 AllCops:
   NewCops: enable
 
+Layout/LineLength:
+  Max: 130
+
 Naming/FileName:
   Enabled: false
 
@@ -12,8 +15,11 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
-Metrics/LineLength:
-  Max: 130
+Metrics/MethodLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
 
 Style/Documentation:
   Enabled: false
@@ -26,6 +32,12 @@ RSpec/ContextWording:
 
 RSpec/FilePath:
   Enabled: false
+
+RSpec/ExampleLength:
+  CountAsOne:
+    - array
+    - hash
+    - heredoc
 
 RSpec/NamedSubject:
   Enabled: false
