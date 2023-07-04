@@ -22,6 +22,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'jaro_winkler', '~> 1.5.3'
-  spec.add_dependency 'jipcode', '>= 1.5.0'
+  spec.add_dependency 'jipcode', '>= 3.0.0'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
